@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <title>Sportradar Case</title>
+</head>
+<body>
+    <header>
+      <!-- <img src="/images/logo.png"> -->
+        <h1>Sportradar</h1>
+        <nav>
+            <ul>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Fixture</a></li>
+                <li><a href="#">Teams</a></li>
+                <li><a href="#">Matches</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container center-screen">
+        <h2>Live Fixture</h2>
+        <p>It was designed as a fixture creation site for sports branches. It was created for the case within the Sportradar Internship program.</p>
+        <p>Start over here</p>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <section>
+      <div class="section-content">
+        <form>
+          <label for="sporttype">Sports Type</label> 
+          <input
+            list="sportstype"
+            id="sporttype"
+            name="sporttype"
+            value="Football"
+          />
+          <datalist id="sportstype">   <!-- I created a datalist so they can choose their sport type. An external addition can be made  -->
+            <option value="Football"></option>
+            <option value="Basketball"></option>
+            <option value="Ice Hockey"></option>
+            <option value="Futsal"></option>
+            <option value="Formula 1"></option>
+          </datalist>
+          <label for="hteam">Home Team</label>  <!-- We have labeled the necessary data for the database  -->
+          <input
+            type="text"
+            id="hteam"
+            name="hteam"
+            value="Fenerbahçe"
+            required
+          />
+          <label for="ateam">Away Team</label>
+          <input
+            type="text"
+            id="ateam"
+            name="ateam"
+            value="Beşiktaş"
+            required
+          />
+          <label for="month">Date</label>  <!-- fixture date for matches is retrieved with datetime-local  -->
+          <input
+            type="datetime-local"
+            id="start"
+            name="trip-start"
+            value="2018-07-22"
+            min="2018-01-01"
+            max="2018-12-31"
+            required
+          />
+          <input type="submit" id="submit" />
+        </form>
+      </div>
+      <div class="section-content" id="scores hide">
+      </div>  <!-- section should be hidden when there is no data inside  -->
+    </section>
+  </main>
+</div>
+
+</div>
+<script defer>
+/* const dummyData = [
+  {
+    homeTeam: "Fenerbahçe",
+    awayTeam: "Beşiktaş",
+    date: "Sat Jun 23 2012 06:43:56 GMT+0300 (GMT+03:00)",
+    sportType: "Football",
+  },
+  {
+    homeTeam: "Galatasaray",
+    awayTeam: "Başakşehir",
+    date: "Sat Jun 23 2012 06:43:56 GMT+0300 (GMT+03:00)",
+    sportType: "Football",
+  },
+  {
+    homeTeam: "Artvin Hopa Spor",
+    awayTeam: "Kahta 02 Spor",
+    date: "Sat Jun 23 2012 06:43:56 GMT+0300 (GMT+03:00)",
+    sportType: "Football",
+  },
+  {
+    homeTeam: "Dallas Mavericks",
+    awayTeam: "LA Clippers",
+    date: "Sat Jun 23 2012 06:43:56 GMT+0300 (GMT+03:00)",
+    sportType: "Basketball",
+  },
+]; */
+/* section should be hidden when there is no data inside, I used a render function for this */
+const render = () => {   
+  const scores =
+    0 < all_scores.length
+      ? document.querySelector("#scores")
+      : document.querySelector("#scores\\ hide");
+  console.log(
+    0 < all_scores.length
+      ? document.querySelector("#scores")
+      : document.querySelector("#scores\\ hide")
+  );
+  scores.innerHTML = "";
+  all_scores.forEach((item) => {
+    const date = new Date(item.date).toLocaleString("tr-TR");
+    const element = document.createElement("p");
+    const text = document.createTextNode(
+      `${item.sportType} | ${item.homeTeam} - ${item.awayTeam} | ${date}`
+    );
+    element.appendChild(text);
+    scores.appendChild(element);
+  });
+};
+
+const save = () => {
+  localStorage.setItem("scores", JSON.stringify(all_scores));
+};
+
+const read = () => {
+  return JSON.parse(localStorage.getItem("scores"));
+};
+
+const all_scores = read() || [];
+
+const submit = document.querySelector("#submit");
+
+submit.addEventListener("click", (e) => {
+  e.preventDefault();
+  const homeTeam = document.querySelector("#hteam")?.value;
+  const awayTeam = document.querySelector("#ateam")?.value;
+  const date = document.querySelector("#start").value;
+  const sportType = document.querySelector("#sporttype").value;
+  all_scores.push({
+    homeTeam,
+    awayTeam,
+    date,
+    sportType,
+  });
+  save();
+  if (0 < all_scores.length) {
+    try {
+      const scores = document.querySelector("#scores\\ hide");
+      scores.setAttribute("id", "scores");
+    } catch {}
+  }
+  render();
+});
+
+window.addEventListener("load", (event) => {
+  if (0 < all_scores.length) {
+    const scores = document.querySelector("#scores\\ hide");
+    scores.setAttribute("id", "scores");
+  }
+  render();
+});
+/* alert("Congrats on the world title Max Verstappen"); :) */
+</script>
+    <footer class="center-screen">
+        <p>Made by Semih from Earth ❤ <i class="fas fa-heart"></i></p>
+    </footer>
+</body>
+</html> 
