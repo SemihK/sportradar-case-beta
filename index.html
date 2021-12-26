@@ -36,7 +36,7 @@
             list="sportstype"
             id="sporttype"
             name="sporttype"
-            value="Football"
+            value=""
           />
           <datalist id="sportstype">   <!-- I created a datalist so they can choose their sport type. An external addition can be made  -->
             <option value="Football"></option>
@@ -44,13 +44,14 @@
             <option value="Ice Hockey"></option>
             <option value="Futsal"></option>
             <option value="Formula 1"></option>
+            
           </datalist>
           <label for="hteam">Home Team</label>  <!-- We have labeled the necessary data for the database  -->
           <input
             type="text"
             id="hteam"
             name="hteam"
-            value="Fenerbahçe"
+            value=""
             required
           />
           <label for="ateam">Away Team</label>
@@ -58,7 +59,7 @@
             type="text"
             id="ateam"
             name="ateam"
-            value="Beşiktaş"
+            value=""
             required
           />
           <label for="month">Date</label>  <!-- fixture date for matches is retrieved with datetime-local  -->
@@ -75,6 +76,7 @@
         </form>
       </div>
       <div class="section-content" id="scores hide">
+        
       </div>  <!-- section should be hidden when there is no data inside  -->
     </section>
   </main>
@@ -124,7 +126,7 @@ const render = () => {
     const date = new Date(item.date).toLocaleString("tr-TR");
     const element = document.createElement("p");
     const text = document.createTextNode(
-      `${item.sportType} | ${item.homeTeam} - ${item.awayTeam} | ${date}`
+      `${item.sportType} | ${item.homeTeam} | vs |  ${item.awayTeam} | ${date} `
     );
     element.appendChild(text);
     scores.appendChild(element);
