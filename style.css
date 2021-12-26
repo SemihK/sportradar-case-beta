@@ -14,7 +14,7 @@ body{
 /*------------------ Navbar and Logo -----------------*/
 
 header{
-  background-color: #2B2C2D;
+  /* background-color: #2B2C2D; */
   width: 100vw;
   height: 7vh;
   display: flex;
@@ -150,7 +150,7 @@ form {
 
 /*------------------ Footer -----------------*/
 footer{
-  color: black;
+  color: white;
   opacity: 0;
   animation: fade-in 5s;
   animation-delay: 2s;
